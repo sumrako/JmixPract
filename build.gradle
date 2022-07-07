@@ -42,6 +42,7 @@ dependencies {
         exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
     }
     implementation 'io.jmix.translations:jmix-translations-ru'
+    implementation 'org.postgresql:postgresql'
 }
 
 test {
