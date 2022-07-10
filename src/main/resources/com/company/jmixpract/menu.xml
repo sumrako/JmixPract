@@ -6,6 +6,7 @@
         <item screen="themeSettingsScreen" caption="msg://io.jmix.ui.app.themesettings/themeSettings.caption"/>
         <item screen="Student.browse" caption="msg://com.company.jmixpract.screen.student/studentBrowse.menu"/>
         <item screen="Event.browse" caption="msg://com.company.jmixpract.screen.event/eventBrowse.menu"/>
+        <item screen="Calendar" caption="msg://com.company.jmixpract.screen.calendar/calendar.caption"/>
     </menu>
 
 </menu-config>

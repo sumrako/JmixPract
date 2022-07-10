@@ -7,8 +7,8 @@ import javax.annotation.Nullable;
 
 public enum Format implements EnumClass<String> {
 
-    OFFLINE("OFF"),
-    ONLINE("ON");
+    OFFLINE("event-yellow"),
+    ONLINE("event-green");
 
     private String id;
 

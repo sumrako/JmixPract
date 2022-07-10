@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<window xmlns="http://jmix.io/schema/ui/window"
+        caption="msg://calendar.caption">
+<!--    <data readOnly="true">-->
+<!--        <collection id="eventsCalendarDc"-->
+<!--                    class="com.company.jmixpract.entity.Event">-->
+<!--            <fetchPlan extends="_base">-->
+<!--                <property name="students" fetchPlan="_instance_name"/>-->
+<!--            </fetchPlan>-->
+<!--            <loader id="visitsCalendarDl">-->
+<!--                <query>-->
+<!--                    <![CDATA[select e from Event e where e.startDateTime >= :startDateTime and e.endDateTime <= :endDateTime]]>-->
+<!--                    <condition>-->
+<!--                        <c:jpql>-->
+<!--                            <c:where>e.type in :type</c:where>-->
+<!--                        </c:jpql>-->
+<!--                    </condition>-->
+<!--                </query>-->
+<!--            </loader>-->
+<!--        </collection>-->
+<!--    </data>-->
+    <layout>
+<!--        <hbox expand="calendar"-->
+<!--              height="100%"-->
+<!--              spacing="true"-->
+<!--              width="100%">-->
+<!--            <calendar id="calendar"-->
+<!--                      endDateProperty="2020-07-23"-->
+<!--                      height="100%"-->
+<!--                      startDateProperty="2020-07-17"/>-->
+
+<!--        </hbox>-->
+        <hbox spacing="true" id="calendarFilter" expand="split" width="100%">
+            <split
+                    orientation="horizontal"
+                    id="split"
+                    pos="20"
+                    height="100%"
+                    dockable="true"
+                    dockMode="LEFT"
+            >
+                <vbox id="filterBox" spacing="true" align="TOP_CENTER" margin="true" width="95%">
+                    <groupBox stylename="light"
+                              width="100%"
+                              caption="msg://overview">
+                        <datePicker id="calendarNavigator"
+                                    datatype="localDate"
+                                    width="100%"
+                        />
+                    </groupBox>
+                    <groupBox stylename="light"
+                              width="100%"
+                              caption="msg://calendarMode">
+                        <radioButtonGroup
+                                width="100%"
+                                orientation="horizontal"
+                                stylename="button-switcher"
+                                optionsEnum="com.company.jmixpract.screen.calendar.CalendarMode"
+                                id="calendarMode"
+                        />
+                    </groupBox>
+                    <groupBox stylename="light"
+                              width="100%"
+                              caption="msg://type">
+<!--                        <checkBoxGroup id="typeMultiFilter"-->
+<!--                                       stylename="visit-type"-->
+<!--                                       orientation="vertical"/>-->
+                        <valuesPicker id="valuePicker">
+                            <actions>
+                                <action id="select" type="values_select">
+                                    <properties>
+                                        <property name="Student" value="com.company.jmixpract.entity.Student"/>
+                                    </properties>
+                                </action>
+                                <action id="clear" type="value_clear"/>
+                            </actions>
+                        </valuesPicker>
+                    </groupBox>
+                </vbox>
+                <vbox id="calendarBox"
+                      spacing="true"
+                      margin="true"
+                      width="100%"
+                      height="100%"
+                      expand="calendar"
+                >
+                    <hbox expand="navigator" spacing="true" margin="true">
+                        <buttonsPanel id="navigator" align="MIDDLE_RIGHT" margin="false" spacing="false">
+                            <button id="navigatorCurrent"
+                                    stylename="borderless-colored"
+                                    icon="HOME"/>
+                            <button id="navigatorPrevious"
+                                    stylename="borderless-colored"
+                                    icon="CARET_LEFT"/>
+                            <button id="navigatorNext"
+                                    stylename="borderless-colored"
+                                    icon="CARET_RIGHT"/>
+                        </buttonsPanel>
+                        <label id="calendarTitle"
+                               stylename="h3"
+                               align="MIDDLE_CENTER"
+                               icon="font-icon:CALENDAR"
+                               width="200px"/>
+                    </hbox>
+                    <calendar id="calendar"
+                              width="100%"
+                              navigationButtonsVisible="false"/>
+<!--                              captionProperty="petName"-->
+<!--                              descriptionProperty="description"-->
+<!--                              startDateProperty="visitStart"-->
+<!--                              endDateProperty="visitEnd"-->
+<!--                              firstVisibleDayOfWeek="2"-->
+<!--                              firstVisibleHourOfDay="5"-->
+<!--                              lastVisibleHourOfDay="20"-->
+<!--                              stylenameProperty="typeStyle"-->
+
+                </vbox>
+            </split>
+        </hbox>
+    </layout>
+
+</window>

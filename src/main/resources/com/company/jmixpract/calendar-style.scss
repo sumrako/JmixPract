@@ -1,0 +1,11 @@
+@mixin calendar-event {
+  .v-calendar-event.event-green {
+    background-color: #c8f4c9;
+    color: #037516;
+  }
+
+  .v-calendar-event.event-yellow {
+    background-color: #f4efc8;
+    color: #5f5c41;
+  }
+}
