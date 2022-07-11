@@ -45,8 +45,8 @@
                 <action id="remove" type="remove"/>
             </actions>
             <columns>
-                <column id="firstName"/>
                 <column id="lastName"/>
+                <column id="firstName"/>
                 <column id="patronymic"/>
                 <column id="university"/>
                 <column id="specialization"/>

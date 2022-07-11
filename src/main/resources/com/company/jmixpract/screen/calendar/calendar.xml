@@ -1,35 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <window xmlns="http://jmix.io/schema/ui/window"
         caption="msg://calendar.caption">
-<!--    <data readOnly="true">-->
-<!--        <collection id="eventsCalendarDc"-->
-<!--                    class="com.company.jmixpract.entity.Event">-->
-<!--            <fetchPlan extends="_base">-->
-<!--                <property name="students" fetchPlan="_instance_name"/>-->
-<!--            </fetchPlan>-->
-<!--            <loader id="visitsCalendarDl">-->
-<!--                <query>-->
-<!--                    <![CDATA[select e from Event e where e.startDateTime >= :startDateTime and e.endDateTime <= :endDateTime]]>-->
-<!--                    <condition>-->
-<!--                        <c:jpql>-->
-<!--                            <c:where>e.type in :type</c:where>-->
-<!--                        </c:jpql>-->
-<!--                    </condition>-->
-<!--                </query>-->
-<!--            </loader>-->
-<!--        </collection>-->
-<!--    </data>-->
     <layout>
-<!--        <hbox expand="calendar"-->
-<!--              height="100%"-->
-<!--              spacing="true"-->
-<!--              width="100%">-->
-<!--            <calendar id="calendar"-->
-<!--                      endDateProperty="2020-07-23"-->
-<!--                      height="100%"-->
-<!--                      startDateProperty="2020-07-17"/>-->
-
-<!--        </hbox>-->
         <hbox spacing="true" id="calendarFilter" expand="split" width="100%">
             <split
                     orientation="horizontal"
@@ -62,14 +34,11 @@
                     <groupBox stylename="light"
                               width="100%"
                               caption="msg://type">
-<!--                        <checkBoxGroup id="typeMultiFilter"-->
-<!--                                       stylename="visit-type"-->
-<!--                                       orientation="vertical"/>-->
                         <valuesPicker id="valuePicker">
                             <actions>
                                 <action id="select" type="values_select">
                                     <properties>
-                                        <property name="Student" value="com.company.jmixpract.entity.Student"/>
+                                        <property name="entityName" value="Student"/>
                                     </properties>
                                 </action>
                                 <action id="clear" type="value_clear"/>
@@ -104,6 +73,7 @@
                     </hbox>
                     <calendar id="calendar"
                               width="100%"
+                              datatype="localDateTime"
                               navigationButtonsVisible="false"/>
 <!--                              captionProperty="petName"-->
 <!--                              descriptionProperty="description"-->

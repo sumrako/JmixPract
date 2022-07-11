@@ -14,17 +14,14 @@ import io.jmix.ui.action.Action;
 import io.jmix.ui.component.*;
 import io.jmix.ui.component.calendar.SimpleCalendarEvent;
 import io.jmix.ui.screen.*;
-import org.apache.tomcat.jni.Local;
 import org.springframework.beans.factory.annotation.Autowired;
-import java.text.ParsePosition;
-import java.text.SimpleDateFormat;
+
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.ZoneId;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Date;
+import java.util.Collections;
 import java.util.List;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 import static com.company.jmixpract.screen.calendar.CalendarNavigationMode.*;
@@ -33,8 +30,10 @@ import static com.company.jmixpract.screen.calendar.RelativeDates.startOfWeek;
 @UiController("Calendar")
 @UiDescriptor("calendar.xml")
 public class Calendar extends Screen {
+
     @Autowired
     protected io.jmix.ui.component.Calendar<LocalDateTime> calendar;
+
     @Autowired
     protected Messages messages;
     @Autowired
@@ -55,22 +54,21 @@ public class Calendar extends Screen {
     private CalendarNavigators calendarNavigators;
     @Autowired
     private Label<String> calendarTitle;
-
     @Autowired
     private DatatypeFormatter datatypeFormatter;
 
+
     @Subscribe
     protected void onInit(InitEvent event) {
-//        initTypeFilter();
         initSortCalendarEventsInMonthlyView();
         generateEvents();
     }
 
-//    private void initTypeFilter() {
-//        typeMultiFilter.setOptionsEnum(VisitType.class);
-//        typeMultiFilter.setValue(EnumSet.allOf(VisitType.class));
-//        typeMultiFilter.setOptionIconProvider(o -> VisitTypeIcon.valueOf(o.getIcon()).source());
-//    }
+
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////
+    // Calendar Date Navigation
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 
     @Subscribe
     public void onBeforeShow(BeforeShowEvent event) {
@@ -153,83 +151,66 @@ public class Calendar extends Screen {
                 )
                 .navigate(navigationMode, referenceDate);
 
-        generateEvents();
-//        loadEvents();
+        if (valuePicker.isEmpty())
+            generateEvents();
+        else
+            generateEvents(event1 -> !Collections.disjoint(event1.getStudents(), valuePicker.getValue()));
     }
 
-
-
-//    private void loadEvents() {
-//        visitsCalendarDl.setParameter("visitStart", calendar.getStartDate());
-//        visitsCalendarDl.setParameter("visitEnd", calendar.getEndDate());
-//        visitsCalendarDl.load();
-//    }
-
-//    @Subscribe("addEvent")
-//    protected void onAddEventClick(Button.ClickEvent event) {
-//        generateEvent(
-//                descriptionField.getValue(),
-//                startDateField.getValue(),
-//                endDateField.getValue(),
-//                isAllDay.getValue()
-//        );
-//    }
-
-    protected void generateEvents() {
-        List<Event> eventList = dataManager.load(Event.class).all().list();
-        List<LocalDateTime> startPracticeDateList = new ArrayList<>();
-        List<LocalDateTime> endPracticeDateList = new ArrayList<>();
-
-        dataManager.load(Student.class)
-                .all().list()
-                .forEach(student -> {
-                    LocalDateTime startDateTime = student.getStartPracticeDate().atTime(0, 0);
-                    LocalDateTime endDateTime = student.getEndPracticeDate().atTime(0, 0);
-
-                    mapPracticeDateTime(eventList, startPracticeDateList, startDateTime, student,
-                            "Start practice");
-
-                    mapPracticeDateTime(eventList, endPracticeDateList, endDateTime, student,
-                            "End practice");
-
-                });
-
-        eventList.forEach(this::generateEvent);
-     }
-
-    private void mapPracticeDateTime(List<Event> eventList, List<LocalDateTime> dateTimeList,
-                                     LocalDateTime dateTime, Student student, String description) {
-        if (dateTimeList.contains(dateTime)) {
-            Event event = eventList.stream().filter(event1 ->
-                    event1.getStartDateTime().equals(dateTime)).findFirst().get();
-            event.getStudents().add(student);
-        } else {
-            Event event = createEvent(description,
-                    dateTime,
-                    dateTime.plusHours(1),
-                    "", Format.ONLINE, List.of(student));
-
-            eventList.add(event);
-            dateTimeList.add(dateTime);
+    @Subscribe("calendarMode")
+    protected void onCalendarRangeValueChange(HasValue.ValueChangeEvent event) {
+        if (event.isUserOriginated()) {
+            atDate((CalendarMode) event.getValue(), calendarNavigator.getValue());
         }
     }
 
-    protected Event createEvent(String description,
-                                LocalDateTime startDateTime,
-                                LocalDateTime endDateTime,
-                                String place,
-                                Format format,
-                                List<Student> students) {
 
-        Event event = dataManager.create(Event.class);
-        event.setFormat(format);
-        event.setStartDateTime(startDateTime);
-        event.setEndDateTime(endDateTime);
-        event.setPlace(place);
-        event.setDescription(description);
-        event.setStudents(students);
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////
+    // Calendar Data Manipulation
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-        return event;
+
+    protected void generateEvents() {
+        calendar.getEventProvider().removeAllEvents();
+        List<Event> eventList = dataManager.load(Event.class).all().list();
+
+        eventList.forEach(this::generateEvent);
+        addStartEndPracticeEvents();
+     }
+
+    protected void generateEvents(Predicate<? super Event> filter) {
+        calendar.getEventProvider().removeAllEvents();
+        List<Event> eventList = dataManager.load(Event.class).all().list();
+
+        eventList = eventList.stream().filter(filter).collect(Collectors.toList());
+        eventList.forEach(this::generateEvent);
+        addStartEndPracticeEvents(student -> valuePicker.getValue().contains(student));
+    }
+
+    private void addStartEndPracticeEvents(Predicate<? super Student> filter) {
+        dataManager.load(Student.class)
+                .all().list().stream().filter(filter)
+                .collect(Collectors.toList())
+                .forEach(this::addStartEndPracticeEvent);
+    }
+
+    private void addStartEndPracticeEvents() {
+        dataManager.load(Student.class)
+                .all().list()
+                .forEach(this::addStartEndPracticeEvent);
+    }
+
+    private void addStartEndPracticeEvent(Student student) {
+        LocalDateTime startDateTime = student.getStartPracticeDate().atTime(0, 0);
+        LocalDateTime endDateTime = student.getEndPracticeDate().atTime(0, 0);
+
+        generateEvent(messages.getMessage("com.company.jmixpract", "start.application"),
+                String.format("Student:\n%s", student.getFirstName()), startDateTime,
+                startDateTime, Format.OFFLINE.getId(), true);
+
+        generateEvent(messages.getMessage("com.company.jmixpract", "end.application"),
+                String.format("Student:\n%s", student.getFirstName()), endDateTime,
+                endDateTime, Format.OFFLINE.getId(), true);
     }
 
     protected void generateEvent(Event event) {
@@ -237,7 +218,6 @@ public class Calendar extends Screen {
         String students = String.join("\n", event.getStudents().stream().map(Student::getFirstName)
                 .collect(Collectors.toList()));
         String description = String.format("Place: %s\nStudents:\n%s", event.getPlace(), students);
-
         String stylename = event.getFormat().getId();
 
         generateEvent(
@@ -245,42 +225,41 @@ public class Calendar extends Screen {
                 description,
                 event.getStartDateTime(),
                 event.getEndDateTime(),
-//                convertLocalDateTime(event.getStartDateTime()),
-//                convertLocalDateTime(event.getEndDateTime()),
-                stylename
+                stylename,
+                false
         );
     }
 
-    public Date convertLocalDateTime(LocalDateTime localDateTime) {
-        return Date.from(localDateTime.atZone(ZoneId.systemDefault()).toInstant());
-    }
-
     protected void generateEvent(String caption, String description, LocalDateTime start, LocalDateTime end,
-                                 String stylename) {
+                                 String stylename, boolean isAllDay) {
         SimpleCalendarEvent<LocalDateTime> calendarEvent = new SimpleCalendarEvent<>();
         calendarEvent.setCaption(caption);
         calendarEvent.setDescription(description);
         calendarEvent.setStart(start);
         calendarEvent.setEnd(end);
+        calendarEvent.setAllDay(isAllDay);
         calendarEvent.setStyleName(stylename);
 
         calendar.getEventProvider().addEvent(calendarEvent);
     }
 
+
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////
+    // Calendar Filter Handlers
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
     @Subscribe("calendar")
     public void onCalendarCalendarDayClick(io.jmix.ui.component.Calendar.CalendarDayClickEvent<LocalDateTime> event) {
         Screen eventEditor = screenBuilders.editor(Event.class, this)
                 .newEntity()
-//                .withInitializer(event1 -> {
-//                    event1.setStartDateTime(event.getDate().plusMinutes(0));
-//                    event1.setEndDateTime(event.getDate().plusHours(1));
-//                })
                 .withOpenMode(OpenMode.DIALOG)
                 .build();
 
         eventEditor.addAfterCloseListener(afterCloseEvent -> {
             if (afterCloseEvent.closedWith(StandardOutcome.COMMIT)) {
                 getScreenData().loadAll();
+                generateEvents();
             }
         });
 
@@ -289,23 +268,35 @@ public class Calendar extends Screen {
 
     @Subscribe("calendar")
     public void onCalendarCalendarEventClick(io.jmix.ui.component.Calendar.CalendarEventClickEvent<LocalDateTime> event) {
-        Screen visitEditor = screenBuilders.editor(Event.class, this)
-                .editEntity((Event) event.getEntity())
-                .withOpenMode(OpenMode.DIALOG)
-                .build();
+        try {
+            Format format = ((Event) event.getEntity()).getFormat();
+            Screen eventEditor = screenBuilders.editor(Event.class, this)
+                    .editEntity((Event) event.getEntity())
+                    .withOpenMode(OpenMode.DIALOG)
+                    .build();
 
-        visitEditor.addAfterCloseListener(afterCloseEvent -> {
-            if (afterCloseEvent.closedWith(StandardOutcome.COMMIT)) {
-                getScreenData().loadAll();
+            eventEditor.addAfterCloseListener(afterCloseEvent -> {
+                if (afterCloseEvent.closedWith(StandardOutcome.COMMIT)) {
+                    getScreenData().loadAll();
+                    generateEvents();
+                }
+            });
 
-            }
-        });
-
-        visitEditor.show();
+            eventEditor.show();
+        } catch (NullPointerException e) {
+        }
     }
 
-    @Subscribe("valuePicker.select")
-    public void onValuePickerSelect(Action.ActionPerformedEvent event) {
-
+    @Subscribe("valuePicker")
+    public void onValuePickerValueChange(HasValue.ValueChangeEvent event) {
+        if (!valuePicker.isEmpty())
+            generateEvents(event1 -> !Collections.disjoint(event1.getStudents(), valuePicker.getValue()));
     }
+
+    @Subscribe("valuePicker.clear")
+    public void onValuePickerClear(Action.ActionPerformedEvent event) {
+        valuePicker.clear();
+        generateEvents();
+    }
+
 }

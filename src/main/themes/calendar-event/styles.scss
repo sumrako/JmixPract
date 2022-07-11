@@ -1,0 +1,8 @@
+@import "calendar-event-defaults";
+@import "addons";
+@import "calendar-event";
+
+.calendar-event {
+  @include addons;
+  @include calendar-event;
+}
