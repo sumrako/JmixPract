@@ -1,0 +1,245 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.5.xsd"
+        objectQuotingStrategy="QUOTE_ONLY_RESERVED_WORDS">
+        <changeSet id="insertStudents" author="JmixPract">
+            <insert tableName="STUDENT">
+                <column name="id" value="0501a412-3b5f-4ff9-8442-26bacfc01a80"/>
+                <column name="LAST_NAME" value="Арнаутов"/>
+                <column name="FIRST_NAME" value="Андрей"/>
+                <column name="PATRONYMIC" value="Игоревич"/>
+                <column name="UNIVERSITY" value="СНИУ им. Королева"/>
+                <column name="SPECIALIZATION" value="ПМИ"/>
+                <column name="START_PRACTICE_DATE" value="2022-07-01"/>
+                <column name="END_PRACTICE_DATE" value="2022-07-15"/>
+<!--                <column name="TASK_" valueBlobFile="task.txt"/>-->
+                <column name="VERSION" value="1"/>
+            </insert>
+            <insert tableName="STUDENT">
+                <column name="id" value="f7c2d050-bdda-4ab6-8c64-58e48c55b8e1"/>
+                <column name="LAST_NAME" value="Кобальщиков"/>
+                <column name="FIRST_NAME" value="Петр"/>
+                <column name="PATRONYMIC" value="Семенович"/>
+                <column name="UNIVERSITY" value="СНИУ им. Королева"/>
+                <column name="SPECIALIZATION" value="ПМИ"/>
+                <column name="START_PRACTICE_DATE" value="2022-07-15"/>
+                <column name="END_PRACTICE_DATE" value="2022-07-30"/>
+<!--                <column name="TASK_" valueBlobFile="task.txt"/>-->
+                <column name="VERSION" value="1"/>
+            </insert>
+            <insert tableName="STUDENT">
+                <column name="id" value="054959b1-7abd-4d70-b4b8-0767d4e8b6ed"/>
+                <column name="LAST_NAME" value="Дукатов"/>
+                <column name="FIRST_NAME" value="Виктор"/>
+                <column name="PATRONYMIC" value="Семенович"/>
+                <column name="UNIVERSITY" value="Политех"/>
+                <column name="SPECIALIZATION" value="ИВТ"/>
+                <column name="START_PRACTICE_DATE" value="2022-07-04"/>
+                <column name="END_PRACTICE_DATE" value="2022-07-19"/>
+<!--                <column name="TASK_" valueBlobFile="task.txt"/>-->
+                <column name="VERSION" value="1"/>
+            </insert>
+            <insert tableName="STUDENT">
+                <column name="id" value="4f48ae67-bb20-462d-99f0-59f2ecf8014f"/>
+                <column name="LAST_NAME" value="Пучкович"/>
+                <column name="FIRST_NAME" value="Алексей"/>
+                <column name="PATRONYMIC" value="Михайлович"/>
+                <column name="UNIVERSITY" value="СГЭУ"/>
+                <column name="SPECIALIZATION" value="Экономика и управление"/>
+                <column name="START_PRACTICE_DATE" value="2022-07-08"/>
+                <column name="END_PRACTICE_DATE" value="2022-07-23"/>
+<!--                <column name="TASK_" valueBlobFile="task.txt"/>-->
+                <column name="VERSION" value="1"/>
+            </insert>
+            <insert tableName="STUDENT">
+                <column name="id" value="3412c914-c4fd-48c3-84d5-1074da6fd002"/>
+                <column name="LAST_NAME" value="Гулич"/>
+                <column name="FIRST_NAME" value="Калтук"/>
+                <column name="PATRONYMIC" value="Битакыч"/>
+                <column name="UNIVERSITY" value="ИТМО"/>
+                <column name="SPECIALIZATION" value="ИБАС"/>
+                <column name="START_PRACTICE_DATE" value="2022-06-29"/>
+                <column name="END_PRACTICE_DATE" value="2022-07-18"/>
+<!--                <column name="TASK_" valueBlobFile="task.txt"/>-->
+                <column name="VERSION" value="1"/>
+            </insert>
+        </changeSet>
+    <changeSet id="insertEvents" author="JmixPract">
+        <insert tableName="EVENT">
+            <column name="id" value="4c1c3523-03cb-40aa-b38e-bb3b78bc527b"/>
+            <column name="FORMAT" value="OFFLINE"/>
+            <column name="DESCRIPTION" value="Экскурсия в офис"/>
+            <column name="PLACE" value="Офис компании"/>
+            <column name="START_DATE_TIME" value="2022-07-01 10:00:00"/>
+            <column name="END_DATE_TIME" value="2022-07-01 12:00:00"/>
+            <column name="VERSION" value="1"/>
+        </insert>
+        <insert tableName="EVENT">
+            <column name="id" value="7027b5f5-5330-4bb1-ba74-ed087fad5942"/>
+            <column name="FORMAT" value="ONLINE"/>
+            <column name="DESCRIPTION" value="Первая контрольная точка"/>
+            <column name="PLACE" value="Zoom"/>
+            <column name="START_DATE_TIME" value="2022-07-03 17:00:00"/>
+            <column name="END_DATE_TIME" value="2022-07-03 17:30:00"/>
+            <column name="VERSION" value="1"/>
+        </insert>
+        <insert tableName="EVENT">
+            <column name="id" value="0a450cc2-1c86-4fb3-a9a8-dbc2e9894195"/>
+            <column name="FORMAT" value="OFFLINE"/>
+            <column name="DESCRIPTION" value="Подписывание документов"/>
+            <column name="PLACE" value="Офис компании"/>
+            <column name="START_DATE_TIME" value="2022-07-07 10:00:00"/>
+            <column name="END_DATE_TIME" value="2022-07-07 15:00:00"/>
+            <column name="VERSION" value="1"/>
+        </insert>
+        <insert tableName="EVENT">
+            <column name="id" value="d293bd74-4ddb-4da3-ba50-617045a8430e"/>
+            <column name="FORMAT" value="OFFLINE"/>
+            <column name="DESCRIPTION" value="Митап о Jmix"/>
+            <column name="PLACE" value="Загордный парк"/>
+            <column name="START_DATE_TIME" value="2022-07-15 09:00:00"/>
+            <column name="END_DATE_TIME" value="2022-07-15 17:00:00"/>
+            <column name="VERSION" value="1"/>
+        </insert>
+        <insert tableName="EVENT">
+            <column name="id" value="11866755-f22d-4ff3-ae9b-bca1f319f355"/>
+            <column name="FORMAT" value="ONLINE"/>
+            <column name="DESCRIPTION" value="Вторая контрольная точка"/>
+            <column name="PLACE" value="Zoom"/>
+            <column name="START_DATE_TIME" value="2022-07-20 17:00:00"/>
+            <column name="END_DATE_TIME" value="2022-07-20 19:00:00"/>
+            <column name="VERSION" value="1"/>
+        </insert>
+        <insert tableName="EVENT">
+            <column name="id" value="21b4c836-db50-42cd-841b-b09315a592c8"/>
+            <column name="FORMAT" value="ONLINE"/>
+            <column name="DESCRIPTION" value="Третья контрольная точка"/>
+            <column name="PLACE" value="Zoom"/>
+            <column name="START_DATE_TIME" value="2022-07-23 17:00:00"/>
+            <column name="END_DATE_TIME" value="2022-07-23 19:00:00"/>
+            <column name="VERSION" value="1"/>
+        </insert>
+        <insert tableName="EVENT">
+            <column name="id" value="444f8b98-f5c2-4023-ae7f-a46defed5bda"/>
+            <column name="FORMAT" value="OFFLINE"/>
+            <column name="DESCRIPTION" value="Bench conference"/>
+            <column name="PLACE" value="Офис компании"/>
+            <column name="START_DATE_TIME" value="2022-07-25 13:00:00"/>
+            <column name="END_DATE_TIME" value="2022-07-25 15:00:00"/>
+            <column name="VERSION" value="1"/>
+        </insert>
+    </changeSet>
+    <changeSet id="insertStudentEventLink" author="JmixPract">
+        <insert tableName="EVENT_STUDENT_LINK">
+            <column name="STUDENT_ID" value="0501a412-3b5f-4ff9-8442-26bacfc01a80"/>
+            <column name="EVENT_ID" value="4c1c3523-03cb-40aa-b38e-bb3b78bc527b"/>
+        </insert>
+        <insert tableName="EVENT_STUDENT_LINK">
+            <column name="STUDENT_ID" value="f7c2d050-bdda-4ab6-8c64-58e48c55b8e1"/>
+            <column name="EVENT_ID" value="4c1c3523-03cb-40aa-b38e-bb3b78bc527b"/>
+        </insert>
+        <insert tableName="EVENT_STUDENT_LINK">
+            <column name="STUDENT_ID" value="4f48ae67-bb20-462d-99f0-59f2ecf8014f"/>
+            <column name="EVENT_ID" value="4c1c3523-03cb-40aa-b38e-bb3b78bc527b"/>
+        </insert>
+
+        <insert tableName="EVENT_STUDENT_LINK">
+            <column name="STUDENT_ID" value="4f48ae67-bb20-462d-99f0-59f2ecf8014f"/>
+            <column name="EVENT_ID" value="7027b5f5-5330-4bb1-ba74-ed087fad5942"/>
+        </insert>
+        <insert tableName="EVENT_STUDENT_LINK">
+            <column name="STUDENT_ID" value="054959b1-7abd-4d70-b4b8-0767d4e8b6ed"/>
+            <column name="EVENT_ID" value="7027b5f5-5330-4bb1-ba74-ed087fad5942"/>
+        </insert>
+        <insert tableName="EVENT_STUDENT_LINK">
+            <column name="STUDENT_ID" value="3412c914-c4fd-48c3-84d5-1074da6fd002"/>
+            <column name="EVENT_ID" value="7027b5f5-5330-4bb1-ba74-ed087fad5942"/>
+        </insert>
+
+        <insert tableName="EVENT_STUDENT_LINK">
+            <column name="STUDENT_ID" value="3412c914-c4fd-48c3-84d5-1074da6fd002"/>
+            <column name="EVENT_ID" value="0a450cc2-1c86-4fb3-a9a8-dbc2e9894195"/>
+        </insert>
+        <insert tableName="EVENT_STUDENT_LINK">
+            <column name="STUDENT_ID" value="4f48ae67-bb20-462d-99f0-59f2ecf8014f"/>
+            <column name="EVENT_ID" value="0a450cc2-1c86-4fb3-a9a8-dbc2e9894195"/>
+        </insert>
+        <insert tableName="EVENT_STUDENT_LINK">
+            <column name="STUDENT_ID" value="054959b1-7abd-4d70-b4b8-0767d4e8b6ed"/>
+            <column name="EVENT_ID" value="0a450cc2-1c86-4fb3-a9a8-dbc2e9894195"/>
+        </insert>
+        <insert tableName="EVENT_STUDENT_LINK">
+            <column name="STUDENT_ID" value="f7c2d050-bdda-4ab6-8c64-58e48c55b8e1"/>
+            <column name="EVENT_ID" value="0a450cc2-1c86-4fb3-a9a8-dbc2e9894195"/>
+        </insert>
+
+        <insert tableName="EVENT_STUDENT_LINK">
+            <column name="STUDENT_ID" value="3412c914-c4fd-48c3-84d5-1074da6fd002"/>
+            <column name="EVENT_ID" value="d293bd74-4ddb-4da3-ba50-617045a8430e"/>
+        </insert>
+        <insert tableName="EVENT_STUDENT_LINK">
+            <column name="STUDENT_ID" value="0501a412-3b5f-4ff9-8442-26bacfc01a80"/>
+            <column name="EVENT_ID" value="d293bd74-4ddb-4da3-ba50-617045a8430e"/>
+        </insert>
+
+        <insert tableName="EVENT_STUDENT_LINK">
+            <column name="STUDENT_ID" value="0501a412-3b5f-4ff9-8442-26bacfc01a80"/>
+            <column name="EVENT_ID" value="11866755-f22d-4ff3-ae9b-bca1f319f355"/>
+        </insert>
+        <insert tableName="EVENT_STUDENT_LINK">
+            <column name="STUDENT_ID" value="3412c914-c4fd-48c3-84d5-1074da6fd002"/>
+            <column name="EVENT_ID" value="11866755-f22d-4ff3-ae9b-bca1f319f355"/>
+        </insert>
+        <insert tableName="EVENT_STUDENT_LINK">
+            <column name="STUDENT_ID" value="f7c2d050-bdda-4ab6-8c64-58e48c55b8e1"/>
+            <column name="EVENT_ID" value="11866755-f22d-4ff3-ae9b-bca1f319f355"/>
+        </insert>
+        <insert tableName="EVENT_STUDENT_LINK">
+            <column name="STUDENT_ID" value="054959b1-7abd-4d70-b4b8-0767d4e8b6ed"/>
+            <column name="EVENT_ID" value="11866755-f22d-4ff3-ae9b-bca1f319f355"/>
+        </insert>
+        <insert tableName="EVENT_STUDENT_LINK">
+            <column name="STUDENT_ID" value="4f48ae67-bb20-462d-99f0-59f2ecf8014f"/>
+            <column name="EVENT_ID" value="11866755-f22d-4ff3-ae9b-bca1f319f355"/>
+        </insert>
+
+        <insert tableName="EVENT_STUDENT_LINK">
+            <column name="STUDENT_ID" value="0501a412-3b5f-4ff9-8442-26bacfc01a80"/>
+            <column name="EVENT_ID" value="21b4c836-db50-42cd-841b-b09315a592c8"/>
+        </insert>
+        <insert tableName="EVENT_STUDENT_LINK">
+            <column name="STUDENT_ID" value="3412c914-c4fd-48c3-84d5-1074da6fd002"/>
+            <column name="EVENT_ID" value="21b4c836-db50-42cd-841b-b09315a592c8"/>
+        </insert>
+        <insert tableName="EVENT_STUDENT_LINK">
+            <column name="STUDENT_ID" value="f7c2d050-bdda-4ab6-8c64-58e48c55b8e1"/>
+            <column name="EVENT_ID" value="21b4c836-db50-42cd-841b-b09315a592c8"/>
+        </insert>
+        <insert tableName="EVENT_STUDENT_LINK">
+            <column name="STUDENT_ID" value="054959b1-7abd-4d70-b4b8-0767d4e8b6ed"/>
+            <column name="EVENT_ID" value="21b4c836-db50-42cd-841b-b09315a592c8"/>
+        </insert>
+        <insert tableName="EVENT_STUDENT_LINK">
+            <column name="STUDENT_ID" value="4f48ae67-bb20-462d-99f0-59f2ecf8014f"/>
+            <column name="EVENT_ID" value="21b4c836-db50-42cd-841b-b09315a592c8"/>
+        </insert>
+
+        <insert tableName="EVENT_STUDENT_LINK">
+            <column name="STUDENT_ID" value="054959b1-7abd-4d70-b4b8-0767d4e8b6ed"/>
+            <column name="EVENT_ID" value="444f8b98-f5c2-4023-ae7f-a46defed5bda"/>
+        </insert>
+    </changeSet>
+    <changeSet id="updateFormat" author="JmixPract">
+        <update tableName="EVENT">
+            <column name="FORMAT" value="event-yellow"/>
+            <where>format='ONLINE'</where>
+        </update>
+        <update tableName="EVENT">
+            <column name="FORMAT" value="event-green"/>
+            <where>format='OFFLINE'</where>
+        </update>
+    </changeSet>
+</databaseChangeLog>

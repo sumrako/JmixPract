@@ -46,8 +46,7 @@ public class Student {
     @NotNull
     private String specialization;
 
-    @Column(name = "TASK_", nullable = false)
-    @NotNull
+    @Column(name = "TASK_")
     private byte[] task;
 
     @Column(name = "START_PRACTICE_DATE", nullable = false)

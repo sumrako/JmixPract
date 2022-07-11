@@ -205,17 +205,18 @@ public class Calendar extends Screen {
         LocalDateTime endDateTime = student.getEndPracticeDate().atTime(0, 0);
 
         generateEvent(messages.getMessage("com.company.jmixpract", "start.application"),
-                String.format("Student:\n%s", student.getFirstName()), startDateTime,
+                String.format("Student:\n%s", student.getFirstName() + " " + student.getLastName()), startDateTime,
                 startDateTime, Format.OFFLINE.getId(), true);
 
         generateEvent(messages.getMessage("com.company.jmixpract", "end.application"),
-                String.format("Student:\n%s", student.getFirstName()), endDateTime,
+                String.format("Student:\n%s", student.getFirstName() + " " + student.getLastName()), endDateTime,
                 endDateTime, Format.OFFLINE.getId(), true);
     }
 
     protected void generateEvent(Event event) {
         String caption = event.getDescription();
-        String students = String.join("\n", event.getStudents().stream().map(Student::getFirstName)
+        String students = String.join("\n", event.getStudents().stream()
+                .map(student -> student.getFirstName() + " " + student.getLastName())
                 .collect(Collectors.toList()));
         String description = String.format("Place: %s\nStudents:\n%s", event.getPlace(), students);
         String stylename = event.getFormat().getId();

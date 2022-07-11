@@ -47,6 +47,7 @@
         </createTable>
     </changeSet>
     <changeSet id="3" author="JmixPract">
+<!--        <validCheckSum>8:186a20be0111955d0c686d15cc01540c</validCheckSum>-->
         <createTable tableName="STUDENT">
             <column name="ID" type="UUID">
                 <constraints nullable="false" primaryKey="true" primaryKeyName="PK_STUDENT"/>
@@ -95,5 +96,8 @@
         <addForeignKeyConstraint baseColumnNames="STUDENT_ID" baseTableName="EVENT_STUDENT_LINK"
                                  constraintName="FK_EVESTU_ON_STUDENT" referencedColumnNames="ID"
                                  referencedTableName="STUDENT"/>
+    </changeSet>
+    <changeSet id="6" author="JmixPract">
+        <dropNotNullConstraint tableName="STUDENT" columnName="TASK_" columnDataType="${byte[].type}"/>
     </changeSet>
 </databaseChangeLog>

@@ -33,7 +33,8 @@
                     <textField id="patronymicField" property="patronymic"/>
                     <textField id="universityField" property="university"/>
                     <textField id="specializationField" property="specialization"/>
-                    <fileUpload id="taskField" property="task"/>
+                    <fileUpload id="taskField" showFileName="true"
+                                property="task"/>
                     <dateField id="startPracticeDateField" property="startPracticeDate"/>
                     <dateField id="endPracticeDateField" property="endPracticeDate"/>
                 </column>

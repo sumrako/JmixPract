@@ -75,15 +75,6 @@
                               width="100%"
                               datatype="localDateTime"
                               navigationButtonsVisible="false"/>
-<!--                              captionProperty="petName"-->
-<!--                              descriptionProperty="description"-->
-<!--                              startDateProperty="visitStart"-->
-<!--                              endDateProperty="visitEnd"-->
-<!--                              firstVisibleDayOfWeek="2"-->
-<!--                              firstVisibleHourOfDay="5"-->
-<!--                              lastVisibleHourOfDay="20"-->
-<!--                              stylenameProperty="typeStyle"-->
-
                 </vbox>
             </split>
         </hbox>
